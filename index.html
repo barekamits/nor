@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Հայկ և Օֆելիա</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Explora&family=Great+Vibes&family=Monsieur+La+Doulaise&family=Playfair+Display:wght@500;600&family=Italianno&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ========== ԼՈԿԱԼ ՖՈՆՏ ========== */
+     @font-face {
+            font-family: "Arti Regular";
+            src: url("Arti Regular.otf") format("opentype");
+            font-weight: 400;
+            font-style: normal;
+        }
+     @font-face {
+            font-family: "BrittanySignature";
+            src: url("BrittanySignature.ttf") format("truetype");
+            font-weight: 400;
+            font-style: normal;
+        }
+       @font-face {
+            font-family: "Montserratarm-ExtraLight";
+            src: url("Montserratarm-ExtraLight.otf") format("opentype");
+            font-weight: 400;
+            font-style: normal;
+        }
+       @font-face {
+            font-family: "Montserratarm-Regular";
+            src: url("Montserratarm-Regular.otf") format("opentype");
+            font-weight: 400;
+            font-style: normal;
+        }
+
+    /* ========== RESET ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-family: "Italianno", cursive;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+      width: 100%;
+      background: #fdfaf4;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ========== ՍՔՐՈԼԻ ԱՐԳԵԼԱՓԱԿՈՒՄ ========== */
+    body:not(.opened) {
+      overflow: hidden !important;
+      height: 100% !important;
+      position: fixed !important;
+      width: 100% !important;
+      top: 0 !important;
+      left: 0 !important;
+    }
+
+    body.opened {
+      overflow: visible !important;
+      overflow-x: hidden !important;
+      height: auto !important;
+      position: relative !important;
+      width: 100% !important;
+    }
+
+    /* ========== ԹԱՔՆՎԱԾ ԲՈՎԱՆԴԱԿՈՒԹՅՈՒՆ ========== */
+    .hidden-content {
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transition: opacity 1.2s ease 0.8s, max-height 1.5s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
+    }
+
+    body.opened .hidden-content {
+      opacity: 1;
+      max-height: 10000px;
+    }
+
+    /* ========== ՀԵՐՈ ========== */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      background-image: url("wall.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: visible;
+      z-index: 2;
+      transition: height 1.6s cubic-bezier(0.65, 0, 0.35, 1) 0.5s;
+    }
+
+    body.opened .hero-section {
+      height: 42vh;
+      min-height: 260px;
+      overflow: visible;
+    }
+
+    .hero-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* ========== ՀԱՋՈՐԴ ԲԱԺԻՆ ========== */
+    .next-section {
+      position: relative;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      text-align: center;
+      background: #fdfaf4;
+      color: #6b5d4f;
+      z-index: 1;
+      transition: max-height 1.4s cubic-bezier(0.65, 0, 0.35, 1) 0.6s, opacity 1s ease 0.9s;
+    }
+
+    body.opened .next-section {
+      max-height: 800px;
+      opacity: 1;
+    }
+
+    .next-section-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 70px 20px 90px;
+    }
+
+    .next-section-inner .placeholder-eyebrow {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(12px, 2.5vw, 15px);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 14px;
+    }
+
+    .next-section-inner .placeholder-title {
+      font-family: "BrittanySignature", cursive;
+      font-size: clamp(38px, 8vw, 58px);
+      margin-bottom: 18px;
+      color: #8a7357;
+    }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: clamp(18px, 4vw, 40px);
+      margin-top: 34px;
+      flex-wrap: nowrap;
+    }
+
+    .countdown-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .countdown-number {
+      font-family: 'Arti Regular', serif;
+      font-weight: 600;
+      font-size: clamp(30px, 7.5vw, 52px);
+      color: #8a7357;
+      line-height: 1;
+    }
+
+    .countdown-label {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(10px, 2vw, 12px);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-top: 8px;
+    }
+
+    .countdown-divider {
+      width: 1px;
+      height: clamp(30px, 6vw, 46px);
+      background: rgba(138, 115, 87, 0.3);
+    }
+
+    /* ========== ՕՐԱԿԱՐԳ ========== */
+    .agenda-section {
+      width: 100%;
+      background: #fdfaf4;
+      text-align: center;
+      padding-bottom: 90px;
+    }
+
+    .agenda-inner {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .agenda-title-upper {
+      font-family: "BrittanySignature", cursive;
+      font-size: clamp(34px, 7vw, 52px);
+      font-weight: 400;
+      color: #8a7357;
+      text-align: center;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 1s ease, transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ========== ԺԱՄԱՆԱԿԱՑՈՒՅՑ (ԿԵՆՏՐՈՆԱԿԱՆ ԳԻԾ + ԱՋ/ՁԱԽ) ========== */
+    .timing-list {
+      position: relative;
+      margin-top: 54px;
+      padding: 0 10px;
+    }
+
+    .timing-list::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(74, 64, 56, 0.2);
+      transform: translateX(-50%);
+    }
+
+    .timing-item {
+      position: relative;
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      padding-bottom: 60px;
+    }
+
+    .timing-item:last-child {
+      padding-bottom: 0;
+    }
+
+    .timing-item:nth-child(2) { transition-delay: 0.1s; }
+    .timing-item:nth-child(3) { transition-delay: 0.2s; }
+    .timing-item:nth-child(4) { transition-delay: 0.3s; }
+
+    .timing-marker {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      z-index: 1;
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fdfaf4;
+    }
+
+    .timing-marker svg {
+      width: 25px;
+      height: 25px;
+      fill: #4a4038;
+    }
+
+    .timing-marker svg path {
+      fill: #8a7357;
+    }
+
+    .timing-content {
+      width: calc(50% - 34px);
+      padding-top: 3px;
+      min-width: 0;
+      word-wrap: break-word;
+    }
+
+    .timing-item.side-left .timing-content {
+      margin-right: calc(50% + 34px);
+      text-align: center;
+    }
+
+   .timing-item.side-right .timing-content {
+  margin-left: calc(50% + 10px);
+  text-align: center;
+}
+
+    .timing-time {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 45px !important;
+      color: #8a7357;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .timing-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 25px !important;
+      color: #9a8f83;
+      margin-top: 7px;
+      white-space: nowrap;
+    }
+
+    .timing-venue {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: clamp(15px, 2.7vw, 18px);
+      color: #6b5d4f;
+      margin-top: 14px;
+      white-space: nowrap;
+    }
+
+    .timing-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(15px, 2.5vw, 18px);
+      color: #8a7357;
+      text-decoration: none;
+      padding: 4px 16px 4px 12px;
+      border-radius: 30px;
+      border: 1px solid rgba(138, 115, 87, 0.35);
+      background: rgba(138, 115, 87, 0.07);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .timing-link:hover {
+      background: #8a7357;
+      color: #fdfaf4;
+      border-color: #8a7357;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(138, 115, 87, 0.25);
+    }
+
+    .timing-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
+      transition: fill 0.3s ease;
+    }
+
+    .timing-link:hover svg {
+      fill: #fdfaf4;
+    }
+
+    @media (max-width: 480px) {
+      .timing-marker {
+        width: 30px;
+        height: 30px;
+      }
+      .timing-content {
+        width: calc(50% - 24px);
+        padding-top: 3px;
+      }
+      .timing-item.side-left .timing-content {
+        margin-right: calc(50% + 24px);
+        text-align: center;
+        padding-right: 5px;
+      }
+      .timing-item.side-right .timing-content {
+        margin-left: calc(50% + 24px);
+        text-align: center;
+        padding-left: 5px;
+      }
+      .timing-time {
+        font-size: 20px !important;
+      }
+      .timing-desc {
+        font-size: 16px !important;
+      }
+      .timing-venue {
+        font-size: 13px !important;
+        white-space: normal;
+        word-wrap: break-word;
+      }
+      .timing-link {
+        font-size: 13px !important;
+        padding: 3px 12px 3px 10px;
+        gap: 5px;
+      }
+      .timing-link svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    /* ========== ՀՐԱՎԵՐԻ ՏԵՔՍՏ ========== */
+    .invite-text-section {
+      width: 100%;
+      background: #fdfaf4;
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .invite-text-inner {
+      max-width: 460px;
+      margin: 0 auto;
+    }
+
+    .invite-text-title {
+      font-family: "Montserratarm-Regular", cursive;
+      font-size: clamp(44px, 8vw, 60px);
+      color: #8a7357;
+    }
+  
+    .invite-text-body {
+      font-family: "Montserratarm-ExtraLight", cursive;
+      font-weight: 200;
+      font-size: 20px important!;
+      line-height: 1.8;
+      color: #8a7357;
+      margin-top: 26px;
+    }
+
+    .section-divider {
+      width: 1px;
+      height: 100px;
+      background: rgba(74, 64, 56, 0.25);
+      margin: 20px auto;
+    }
+
+    .invite-deadline {
+      font-family: "Arti Regular", cursive;
+      font-size: clamp(16px, 2.8vw, 19px);
+      line-height: 1.8;
+      color: #4a4038;
+    }
+
+    .invite-deadline b {
+      font-weight: 700;
+    }
+
+    .text-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-family: "Monsieur La Doulaise", cursive;
+      font-size: clamp(14px, 2.5vw, 16.5px);
+      letter-spacing: 0.5px;
+      color: #4a4038;
+      text-decoration: underline;
+      text-underline-offset: 5px;
+      text-decoration-color: rgba(74, 64, 56, 0.5);
+    }
+
+    /* ========== ԼՈՒՍԱՆԿԱՐԻ ԴԱՇՏ ========== */
+    .full-photo-section {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      max-height: 520px;
+      background: linear-gradient(150deg, #eee6d6, #d9c9ab);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(74, 64, 56, 0.35);
+      overflow: hidden;
+    }
+
+    .full-photo-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ========== ՎԱՅՐԵՐ ========== */
+    .venues-section {
+      width: 100%;
+      background: #fdfaf4;
+    }
+
+    .venue-card {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .venue-name {
+      font-family: "Arti Regular", cursive;
+      font-weight: 300;
+      letter-spacing: 2.5px;
+      font-size: clamp(17px, 3.2vw, 19px);
+      color: #8a7357;
+    }
+
+    .venue-address {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(16px, 2.9vw, 19px);
+      color: #4a4038;
+      margin-top: 8px;
+    }
+
+    /* ========== DRESS CODE ========== */
+    .dress-code-section {
+      width: 100%;
+      background: #fdfaf4;
+      text-align: center;
+      padding: 20px 20px 70px;
+    }
+
+    .dress-code-title {
+      font-family: "Italianno", cursive;
+      font-size: clamp(44px, 9vw, 64px);
+      color: #8a7357;
+    }
+
+    .dress-code-text {
+      font-family: "Arti Regular", cursive;
+      font-style: italic;
+      font-size: clamp(15px, 2.8vw, 18px);
+      color: #6b5d4f;
+      margin-top: 18px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .palette-row {
+      display: flex;
+      justify-content: center;
+      gap: clamp(16px, 4vw, 30px);
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .palette-swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .swatch-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .swatch-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(11px, 2vw, 12.5px);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #9a8f83;
+    }
+
+    /* ========== RSVP ========== */
+    .rsvp-section {
+      width: 100%;
+      background: #f5eee8;
+      text-align: center;
+      padding: 20px 20px 100px;
+    }
+
+    .rsvp-title {
+      font-family: "Italianno", cursive;
+      font-size: clamp(44px, 9vw, 64px);
+      color: #8a7357;
+    }
+
+    .rsvp-sub-text {
+      font-family: "Montserratarm-ExtraLight", cursive;
+      font-size: clamp(17px, 3vw, 22px);
+      color: #6b5d4f;
+      margin-top: 6px;
+      letter-spacing: 1px;
+    }
+
+    .rsvp-text {
+      font-family: "Montserratarm-Regular", cursive;
+      font-style: italic;
+      font-size: clamp(15px, 2.8vw, 18px);
+      color: #6b5d4f;
+      margin-top: 18px;
+      max-width: 440px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .rsvp-form {
+      max-width: 360px;
+      margin: 34px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .rsvp-field label {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(11px, 2vw, 12.5px);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: #6b5d4f;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .rsvp-name-input {
+      width: 100%;
+      font-family: "Monsieur La Doulaise", cursive;
+      font-size: clamp(17px, 3vw, 20px);
+      font-weight:300;
+      color: #6b5d4f;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(138, 115, 87, 0.4);
+      padding: 6px 4px 10px;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .rsvp-name-input::placeholder {
+      color: rgba(74, 64, 56, 0.35);
+      font-family: "Monsieur La Doulaise", cursive;
+    }
+
+    .rsvp-name-input:focus {
+      border-bottom-color: #8a7357;
+    }
+
+    .side-options {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .side-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(13px, 2.2vw, 14.5px);
+      letter-spacing: 0.5px;
+      color: #4a4038;
+      padding: 9px 20px;
+      border-radius: 30px;
+      border: 1px solid rgba(138, 115, 87, 0.4);
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .side-option input {
+      display: none;
+    }
+
+    .side-option:has(input:checked) {
+      background: #8a7357;
+      color: #fdfaf4;
+      border-color: #8a7357;
+    }
+
+    .rsvp-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 34px;
+      flex-wrap: wrap;
+    }
+
+    .rsvp-btn {
+      font-family: 'Cormorant Garamond', serif;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-size: clamp(13px, 2.2vw, 15px);
+      padding: 12px 32px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      border: none;
+    }
+
+    .rsvp-btn:hover {
+      transform: translateY(-2px);
+      opacity: 0.9;
+    }
+
+    .rsvp-btn.yes {
+      background: #8a7357;
+      color: #fdfaf4;
+    }
+
+    .rsvp-btn.no {
+      background: transparent;
+      color: #8a7357;
+      border: 1px solid rgba(138, 115, 87, 0.55);
+    }
+
+    /* ========== ԾՐԱՐ ========== */
+    .invitation-container {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+      height: 700px;
+      opacity: 0;
+      transform: translateY(50px) scale(0.85);
+      animation: appear 1s ease-out forwards;
+    }
+
+    @keyframes appear {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.85);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .invite-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      color: #fffdf8;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      z-index: 3;
+      width: 100%;
+      pointer-events: none;
+      transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      top: 25%;
+    }
+
+    body.opened .invite-title {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-20px) scale(0.95);
+      pointer-events: none;
+    }
+
+    .invite-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 900;
+      font-size: clamp(16px, 4.5vw, 26px);
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      white-space: nowrap;
+      position: relative;
+      top: 0;
+      transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      margin-bottom: 5px;
+    }
+
+    /* ===== HAYK & OFELIA - EXPLORA FONT ===== */
+    .invite-names {
+      font-family: "Explora", cursive;
+      font-size: 50px important!;
+      line-height: 1.2;
+      letter-spacing: 3px;
+      font-weight: 600;
+      white-space: nowrap;
+      position: relative;
+      top: 0;
+      transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .invite-names .name-hayk {
+      display: block;
+      /* Հայկը շատ աննշան տեղափոխում ենք ձախ */
+      transform: translateX(-5px);
+    }
+
+    .invite-names .name-divider {
+      width: 80px;  /* ավելի կարճ գիծ */
+      height: 2px;
+      background: rgba(255, 253, 248, 0.5);
+      margin: 4px auto 6px auto;
+      display: block;
+    }
+
+    .invite-names .name-ofelia {
+      display: block;
+      /* Օֆելիան շատ աննշան տեղափոխում ենք աջ */
+      transform: translateX(5px);
+    }
+
+    .invite-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(12px, 2.5vw, 18px);
+      letter-spacing: 4px;
+      opacity: 0.8;
+      margin-top: 5px;
+      white-space: nowrap;
+    }
+
+    .envelope-wrapper {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: fit-content;
+      height: fit-content;
+      cursor: default;
+      z-index: 1;
+    }
+
+    .envelope-container {
+      position: relative;
+      width: 580px;
+      max-width: 90vw;
+      height: auto;
+      transition: all 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .envelope {
+      width: 100%;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.2));
+      transition: all 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      z-index: 1;
+      opacity: 1;
+      cursor: pointer;
+    }
+
+    body.opened .envelope {
+      transform: translateY(-16px) scale(1.02);
+      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.25));
+      transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .envelope-wrapper:hover .envelope {
+      transform: scale(1.02);
+      transition: transform 0.4s ease;
+    }
+
+    body.opened .envelope-wrapper:hover .envelope {
+      transform: translateY(-16px) scale(1.04);
+      transition: transform 0.4s ease;
+    }
+
+    /* ========== ՍԻՐՏ ========== */
+    .heart-card {
+      position: absolute;
+      left: 50%;
+      top: 62%;
+      width: 470px;
+      max-width: 78vw;
+      transform: translate(-50%, -20%) scale(0.25);
+      opacity: 0;
+      z-index: 2;
+      pointer-events: none;
+      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.25));
+    }
+
+    .heart-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @keyframes heart-rise {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -20%) scale(0.25);
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      60% {
+        opacity: 1;
+        transform: translate(-50%, -78%) scale(1.03);
+        animation-timing-function: ease-in-out;
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -70%) scale(1);
+      }
+    }
+
+    body.opened .heart-card {
+      animation: heart-rise 2s 0.25s forwards;
+      z-index: 4;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .invitation-container {
+        height: 100vh !important;
+        max-height: 950px !important;
+      }
+
+      .envelope-container {
+        width: 110vw !important;
+        max-width: 110vw !important;
+      }
+      .envelope {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+      .invite-title {
+        top: 20%;
+      }
+      .invite-subtitle {
+        font-size:30px;
+        letter-spacing: 6px;
+      }
+      .invite-names {
+        font-size: 60px;
+        letter-spacing: 2px;
+      }
+      .invite-names .name-divider {
+        width: 65px; /* ավելի կարճ գիծ */
+        margin: 4px auto 6px auto;
+      }
+      /* Mobile adjustments for Hayk & Ofelia */
+      .invite-names .name-hayk {
+        transform: translateX(-8px); /* Slightly more to the left on mobile */
+      }
+      .invite-names .name-ofelia {
+        transform: translateX(8px); /* Slightly more to the right on mobile */
+      }
+      .invite-date {
+        font-size: clamp(11px, 2.5vw, 16px);
+        letter-spacing: 3px;
+      }
+      .envelope-wrapper {
+        top: 52%;
+      }
+      .envelope-wrapper img {
+        width: 100%;
+        height: auto;
+      }
+      .heart-card {
+        width: 420px;
+        max-width: 78vw;
+        top: 58%;
+      }
+
+      .next-section-inner {
+        padding: 40px 20px 50px;
+      }
+
+      .placeholder-title {
+        font-size: 46px;
+      }
+
+      .countdown-grid {
+        margin-top: 24px;
+      }
+
+      .countdown-number {
+        font-size: 34px;
+      }
+
+      .invite-text-section {
+        padding: 20px 20px 20px;
+      }
+      .invite-text-title{
+        font-size:45px;
+      }
+
+      .invite-text-loc,       
+      .dress-code-title,
+      .rsvp-title {
+        font-size: 72px;
+      }
+
+      .invite-text-body {
+        font-size: 20px;
+        margin-top: 12px;
+      }
+
+      .section-divider {
+        height: 82px;
+        margin-top: 5px;
+      }
+
+      .invite-deadline {
+        font-size: 17px;
+      }
+      .venues-section .venue-card:first-of-type {
+        padding-top: 5px;
+      }
+
+      .venue-card {
+        padding: 45px 20px;
+      }
+
+      .venue-name {
+        font-size: 25px;
+      }
+
+      .venue-address {
+        font-size: 20px;
+      }
+
+      .agenda-section {
+        padding-top: 45px;
+        padding-bottom: 20px;
+      }
+
+      .agenda-title-upper {
+        font-size: 45px;
+      }
+
+      .timing-list {
+        margin-top: 36px;
+      }
+
+      .timing-item {
+        padding-bottom: 40px;
+      }
+
+      .timing-marker {
+        width: 42px;
+        height: 42px;
+      }
+
+      .timing-marker svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      .timing-time {
+        font-size: 20px;
+      }
+
+      .timing-desc {
+        font-size: 16px;
+      }
+
+      .dress-code-section {
+        padding: 15px 20px 50px;
+      }
+
+      .dress-code-text {
+        font-size: 20px;
+        margin-top: 14px;
+      }
+
+      .palette-row {
+        margin-top: 22px;
+        gap: 18px;
+      }
+
+      .rsvp-section {
+        padding: 45px 20px 60px;
+      }
+
+      .rsvp-sub-text {
+        font-size: 18px;
+      }
+
+      .rsvp-text {
+        font-size: 15.5px;
+        margin-top: 14px;
+      }
+
+      .rsvp-form {
+        margin: 24px auto 0;
+        gap: 16px;
+      }
+
+      .rsvp-buttons {
+        margin-top: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .invite-title {
+        top: 20%;
+      }
+      .invite-subtitle {
+        font-size:30px;
+        letter-spacing: 4px;
+      }
+      .invite-names {
+        font-size: 60px;
+        letter-spacing: 1px;
+      }
+      .invite-names .name-divider {
+        width: 60px; /* ավելի կարճ գիծ */
+        margin: 4px auto 6px auto;
+      }
+      /* Mobile adjustments for Hayk & Ofelia */
+      .invite-names .name-hayk {
+        transform: translateX(-10px); /* Slightly more to the left on mobile */
+      }
+      .invite-names .name-ofelia {
+        transform: translateX(10px); /* Slightly more to the right on mobile */
+      }
+      
+      .invite-text-section {
+        padding: 20px 20px 20px;
+      }
+
+      .invite-text-title{
+        font-size:45px;
+      }
+      .invite-text-loc,
+      .dress-code-title,
+      .rsvp-title {
+        font-size: 72px;
+      }
+
+      .invite-text-body {
+        font-size: 20px;
+        margin-top: 12px;
+      }
+
+      .section-divider {
+        height: 82px;
+        margin-top: 5px;
+      }
+
+      .invite-deadline {
+        font-size: 17px;
+      }
+      .venues-section .venue-card:first-of-type {
+        padding-top: 5px;
+      }
+
+      .venue-card {
+        padding: 45px 20px;
+      }
+
+      .venue-name {
+        font-size:25px;
+      }
+
+      .venue-address {
+        font-size: 20px;
+      }
+
+      .agenda-section {
+        padding-top: 20px;
+        padding-bottom: 10px;
+      }
+
+      .agenda-title-upper {
+        font-size: 45px;
+      }
+
+      .timing-list {
+        margin-top: 36px;
+      }
+
+      .timing-item {
+        padding-bottom: 40px;
+      }
+
+      .timing-marker {
+        width: 42px;
+        height: 42px;
+      }
+
+      .timing-marker svg {
+        width: 26px;
+        height: 26px;
+      }
+
+      .timing-time {
+        font-size:20px;
+      }
+
+      .timing-desc {
+        font-size: 16px;
+      }
+
+      .dress-code-section {
+        padding: 15px 20px 50px;
+      }
+
+      .dress-code-text {
+        font-size: 20px;
+        margin-top: 14px;
+      }
+
+      .palette-row {
+        margin-top: 22px;
+        gap: 18px;
+      }
+
+      .rsvp-section {
+        padding: 45px 20px 60px;
+      }
+
+      .rsvp-sub-text {
+        font-size: 17px;
+      }
+
+      .rsvp-text {
+        font-size: 15.5px;
+        margin-top: 14px;
+      }
+
+      .rsvp-form {
+        margin: 24px auto 0;
+        gap: 16px;
+      }
+
+      .rsvp-buttons {
+        margin-top: 24px;
+      }
+
+      .envelope-wrapper {
+        top: 52%;
+      }
+      .envelope-wrapper img {
+        width: 100%;
+        height: auto;
+      }
+      .envelope-container {
+        width: 450px;
+        max-width: 96vw;
+      }
+      .heart-card {
+        width: 330px;
+        max-width: 76vw;
+        top: 55%;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .invite-title {
+        top: 14%;
+      }
+      .invite-names {
+        font-size: clamp(24px, 8vw, 34px);
+      }
+      .invite-names .name-divider {
+        width: 15px;
+      }
+      .invite-names .name-hayk {
+        transform: translateX(-6px);
+      }
+      .invite-names .name-ofelia {
+        transform: translateX(6px);
+      }
+      .envelope-container {
+        width: 380px;
+        max-width: 96vw;
+      }
+      .heart-card {
+        width: 280px;
+        max-width: 74vw;
+      }
+    }
+
+    @media (max-height: 500px) and (orientation: landscape) {
+      .invitation-container {
+        height: 100vh;
+        max-height: 500px;
+      }
+      .invite-title {
+        top: 12%;
+      }
+      .invite-subtitle {
+        font-size: clamp(12px, 3vw, 16px);
+        letter-spacing: 4px;
+      }
+      .invite-names {
+        font-size: clamp(24px, 6vw, 38px);
+        letter-spacing: 2px;
+      }
+      .invite-names .name-divider {
+        width: 20px;
+        margin: 2px auto 4px auto;
+      }
+      .invite-names .name-hayk {
+        transform: translateX(-4px);
+      }
+      .invite-names .name-ofelia {
+        transform: translateX(4px);
+      }
+      .invite-date {
+        font-size: clamp(10px, 2vw, 14px);
+        letter-spacing: 2px;
+      }
+      .envelope-wrapper {
+        top: 55%;
+      }
+      .envelope-container {
+        width: 420px;
+        max-width: 72vw;
+      }
+      .heart-card {
+        width: 280px;
+        max-width: 54vw;
+        top: 52%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero-section">
+    <div class="hero-inner">
+      <div class="invitation-container">
+
+        <div class="invite-title">
+          <div class="invite-subtitle">You are invited</div>
+          <div class="invite-names">
+            <span class="name-hayk">Aram</span>
+            <span class="name-divider"></span>
+            <span class="name-ofelia">Arpine</span>
+          </div>
+        </div>
+
+        <div class="envelope-wrapper">
+          <div class="envelope-container">
+            <!-- Ծրարը - սեղմեք բացելու համար -->
+            <img src="crar.png" alt="Ծրար" class="envelope" id="envelope">
+            
+            <!-- Սիրտը (բացիկը) -->
+            <div class="heart-card" id="heartCard">
+              <img src="edited-photo.png" alt="Բացիկ">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Մնացած բովանդակությունը -->
+  <div class="next-section hidden-content">
+    <div class="next-section-inner">
+      <div class="placeholder-eyebrow">Մեր գեղեցիկ օրվան</div>
+      <div class="placeholder-title">Մնացել է</div>
+
+      <div class="countdown-grid">
+        <div class="countdown-item">
+          <span class="countdown-number" id="cd-days">00</span>
+          <span class="countdown-label">Օր</span>
+        </div>
+        <span class="countdown-divider"></span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="cd-hours">00</span>
+          <span class="countdown-label">Ժամ</span>
+        </div>
+        <span class="countdown-divider"></span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="cd-minutes">00</span>
+          <span class="countdown-label">Րոպե</span>
+        </div>
+        <span class="countdown-divider"></span>
+        <div class="countdown-item">
+          <span class="countdown-number" id="cd-seconds">00</span>
+          <span class="countdown-label">Վայրկյան</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="invite-text-section hidden-content">
+    <div class="invite-text-inner reveal">
+      <div class="invite-text-title">Սիրելի բարեկամներ!</div>
+      <div class="invite-text-body">
+        Հրավիրում ենք Ձեզ՝ մասնակցելու  մեր  կյանքի կարևորագույն իրադարձությանը և
+       մեր օրվա մի մասը կազմելու։
+      </div>
+
+      <div class="section-divider"></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="agenda-section hidden-content">
+    <div class="agenda-inner">
+      <div class="agenda-title-upper reveal">Ժամանակացույց</div>
+      <div class="timing-list">
+        <div class="timing-item side-left reveal">
+          <div class="timing-marker">
+            <svg viewBox="0 0 32 29" fill="#8a7357">
+              <path d="M16 28.5 2.7 16.6C-0.6 13.5-0.7 8.4 2.5 5.2 5.4 2.3 10 2.2 13 5l3 2.8L19 5c3-2.8 7.6-2.7 10.5.2 3.2 3.2 3.1 8.3-0.2 11.4L16 28.5Z"/>
+            </svg>
+          </div>
+          <div class="timing-content">
+            <div class="timing-time">11:00</div>
+            <div class="timing-desc">Հարսի Տուն</div>
+          </div>
+        </div>
+
+        <div class="timing-item side-right reveal">
+          <div class="timing-marker">
+            <svg viewBox="0 0 32 29" fill="#8a7357">
+              <path d="M16 28.5 2.7 16.6C-0.6 13.5-0.7 8.4 2.5 5.2 5.4 2.3 10 2.2 13 5l3 2.8L19 5c3-2.8 7.6-2.7 10.5.2 3.2 3.2 3.1 8.3-0.2 11.4L16 28.5Z"/>
+            </svg>
+          </div>
+          <div class="timing-content">
+            <div class="timing-time">12:30</div>
+            <div class="timing-desc">Փեսայի Տուն</div>
+          </div>
+        </div>
+
+        <div class="timing-item side-left reveal">
+          <div class="timing-marker">
+            <svg viewBox="0 0 32 29" fill="#8a7357">
+              <path d="M16 28.5 2.7 16.6C-0.6 13.5-0.7 8.4 2.5 5.2 5.4 2.3 10 2.2 13 5l3 2.8L19 5c3-2.8 7.6-2.7 10.5.2 3.2 3.2 3.1 8.3-0.2 11.4L16 28.5Z"/>
+            </svg>
+          </div>
+          <div class="timing-content">
+            <div class="timing-time">14:00</div>
+            <div class="timing-desc">Պսակադրություն</div>
+            <a href="#" target="_blank" class="timing-link">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              Ինչպես հասնել
+            </a>
+          </div>
+        </div>
+
+        <div class="timing-item side-right reveal">
+          <div class="timing-marker">
+            <svg viewBox="0 0 32 29" fill="#8a7357">
+              <path d="M16 28.5 2.7 16.6C-0.6 13.5-0.7 8.4 2.5 5.2 5.4 2.3 10 2.2 13 5l3 2.8L19 5c3-2.8 7.6-2.7 10.5.2 3.2 3.2 3.1 8.3-0.2 11.4L16 28.5Z"/>
+            </svg>
+          </div>
+          <div class="timing-content">
+            <div class="timing-time">17:30</div>
+            <div class="timing-desc">Տոնական Խնջույք</div>
+            <a href="#" target="_blank" class="timing-link">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              Ինչպես հասնել
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="rsvp-section hidden-content">
+    <div class="reveal">
+      <div class="rsvp-title">RSVP</div>
+      <div class="rsvp-sub-text">Խնդրում ենք հաստատել Ձեր մասնակցությունը</div>
+      <div class="rsvp-form">
+        <div class="rsvp-field">
+          <label for="rsvp-name">Անուն</label>
+          <input type="text" id="rsvp-name" class="rsvp-name-input" placeholder="Ձեր անունը">
+        </div>
+
+        <div class="rsvp-field">
+          <label>Ու՞մ կողմից եք հրավիրված</label>
+          <div class="side-options">
+            <label class="side-option">
+              <input type="radio" name="rsvp-side" value="bride">
+              Հարսի կողմից
+            </label>
+            <label class="side-option">
+              <input type="radio" name="rsvp-side" value="groom">
+              Փեսայի կողմից
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="rsvp-buttons">
+        <button class="rsvp-btn yes">Գալիս եմ</button>
+        <button class="rsvp-btn no">Չեմ գալիս</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========== ԾՐԱՐԻ ԲԱՑՈՒՄ ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      const envelope = document.getElementById('envelope');
+      const body = document.body;
+
+      if (!envelope) {
+        console.error("envelope չի գտնվել");
+        return;
+      }
+
+      // Բացված ծրարի պատկեր - ՓՈԽԵՔ ՍԱ ՁԵՐ ՊԱՏԿԵՐԻ ԱՆՈՒՆԸ
+      const openedEnvelopeSrc = "baccr.png";
+      let isOpened = false;
+
+      function openEnvelope() {
+        if (isOpened) return;
+        isOpened = true;
+        
+        // Փոխում ենք ծրարի պատկերը
+        envelope.src = openedEnvelopeSrc;
+        
+        // Ավելացնում ենք opened կլասը - սա ակտիվացնում է սքրոլը
+        body.classList.add('opened');
+        
+        console.log("✅ Ծրարը բացվեց");
+      }
+
+      // Ծրարի վրա սեղմել → բացվում է
+      envelope.addEventListener('click', function(e) {
+        e.stopPropagation();
+        console.log("🖱️ Ծրարի վրա սեղմեցին");
+        openEnvelope();
+      });
+
+      console.log("✅ Script-ը պատրաստ է");
+    });
+
+    // ========== ՀԵՏՀԱՇՎԱՐԿ ==========
+    (function() {
+      const weddingDate = new Date('2026-09-20T00:00:00');
+      const elDays = document.getElementById('cd-days');
+      const elHours = document.getElementById('cd-hours');
+      const elMinutes = document.getElementById('cd-minutes');
+      const elSeconds = document.getElementById('cd-seconds');
+
+      function pad(n) {
+        return String(n).padStart(2, '0');
+      }
+
+      function updateCountdown() {
+        const now = new Date();
+        let diff = weddingDate - now;
+        if (diff < 0) diff = 0;
+
+        elDays.textContent = pad(Math.floor(diff / (1000 * 60 * 60 * 24)));
+        elHours.textContent = pad(Math.floor((diff / (1000 * 60 * 60)) % 24));
+        elMinutes.textContent = pad(Math.floor((diff / (1000 * 60)) % 60));
+        elSeconds.textContent = pad(Math.floor((diff / 1000) % 60));
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    })();
+
+    // ========== REVEAL ANIMATION ==========
+    (function() {
+      const revealEls = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      revealEls.forEach((el) => observer.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
